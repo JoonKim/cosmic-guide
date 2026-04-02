@@ -20,65 +20,72 @@
 <body>
   <div id="app" class="mobile-container">
     
+    <!-- Language Toggle -->
+    <div class="lang-toggle">
+      <button id="btn-lang-en" class="lang-btn active">English</button>
+      <span class="lang-sep">|</span>
+      <button id="btn-lang-ko" class="lang-btn">한국어</button>
+    </div>
+
     <!-- Login View -->
     <section id="view-login" class="view active">
       <div class="login-header">
         <div class="logo-icon">✨</div>
-        <h1 class="gradient-text">Cosmic Guide</h1>
-        <p>Unlock your personalized daily journey.</p>
+        <h1 class="gradient-text" data-i18n="title">Cosmic Guide</h1>
+        <p data-i18n="subtitle">Unlock your personalized daily journey.</p>
       </div>
       <form id="form-login" class="glass-panel form-layout">
         <div class="input-group">
-          <label for="login-email">Email</label>
+          <label for="login-email" data-i18n="email">Email</label>
           <input type="email" id="login-email" placeholder="you@example.com" required>
         </div>
         <div class="input-group">
-          <label for="login-password">Password</label>
+          <label for="login-password" data-i18n="password">Password</label>
           <input type="password" id="login-password" placeholder="••••••••" required>
         </div>
-        <button type="submit" class="btn btn-primary">Sign In</button>
-        <button type="button" class="btn btn-secondary" id="btn-demo">Try Demo</button>
+        <button type="submit" class="btn btn-primary" data-i18n="signIn">Sign In</button>
+        <button type="button" class="btn btn-secondary" id="btn-demo" data-i18n="tryDemo">Try Demo</button>
       </form>
     </section>
 
     <!-- Onboarding View -->
     <section id="view-onboarding" class="view hidden">
       <div class="header">
-        <h2>About You</h2>
-        <p>Tell us a bit about yourself so we can tailor your experience.</p>
+        <h2 data-i18n="aboutYou">About You</h2>
+        <p data-i18n="aboutDesc">Tell us a bit about yourself so we can tailor your experience.</p>
       </div>
       <form id="form-onboarding" class="glass-panel form-layout">
         <div class="input-group">
-          <label for="onboard-name">First Name</label>
+          <label for="onboard-name" data-i18n="firstName">First Name</label>
           <input type="text" id="onboard-name" placeholder="Cosmo" required>
         </div>
         <div class="input-group">
-          <label for="onboard-birthday">Birthday</label>
+          <label for="onboard-birthday" data-i18n="birthday">Birthday</label>
           <input type="date" id="onboard-birthday" required>
         </div>
         <div class="input-group">
-          <label for="onboard-mbti">MBTI Personality Type</label>
+          <label for="onboard-mbti" data-i18n="mbtiLabel">MBTI Personality Type</label>
           <select id="onboard-mbti" required>
-            <option value="" disabled selected>Select your type...</option>
-            <option value="INTJ">INTJ - The Architect</option>
-            <option value="INTP">INTP - The Logician</option>
-            <option value="ENTJ">ENTJ - The Commander</option>
-            <option value="ENTP">ENTP - The Debater</option>
-            <option value="INFJ">INFJ - The Advocate</option>
-            <option value="INFP">INFP - The Mediator</option>
-            <option value="ENFJ">ENFJ - The Protagonist</option>
-            <option value="ENFP">ENFP - The Campaigner</option>
-            <option value="ISTJ">ISTJ - The Logistician</option>
-            <option value="ISFJ">ISFJ - The Defender</option>
-            <option value="ESTJ">ESTJ - The Executive</option>
-            <option value="ESFJ">ESFJ - The Consul</option>
-            <option value="ISTP">ISTP - The Virtuoso</option>
-            <option value="ISFP">ISFP - The Adventurer</option>
-            <option value="ESTP">ESTP - The Entrepreneur</option>
-            <option value="ESFP">ESFP - The Entertainer</option>
+            <option value="" disabled selected data-i18n="mbtiSelect">Select your type...</option>
+            <option value="INTJ" data-i18n="INTJ">INTJ - The Architect</option>
+            <option value="INTP" data-i18n="INTP">INTP - The Logician</option>
+            <option value="ENTJ" data-i18n="ENTJ">ENTJ - The Commander</option>
+            <option value="ENTP" data-i18n="ENTP">ENTP - The Debater</option>
+            <option value="INFJ" data-i18n="INFJ">INFJ - The Advocate</option>
+            <option value="INFP" data-i18n="INFP">INFP - The Mediator</option>
+            <option value="ENFJ" data-i18n="ENFJ">ENFJ - The Protagonist</option>
+            <option value="ENFP" data-i18n="ENFP">ENFP - The Campaigner</option>
+            <option value="ISTJ" data-i18n="ISTJ">ISTJ - The Logistician</option>
+            <option value="ISFJ" data-i18n="ISFJ">ISFJ - The Defender</option>
+            <option value="ESTJ" data-i18n="ESTJ">ESTJ - The Executive</option>
+            <option value="ESFJ" data-i18n="ESFJ">ESFJ - The Consul</option>
+            <option value="ISTP" data-i18n="ISTP">ISTP - The Virtuoso</option>
+            <option value="ISFP" data-i18n="ISFP">ISFP - The Adventurer</option>
+            <option value="ESTP" data-i18n="ESTP">ESTP - The Entrepreneur</option>
+            <option value="ESFP" data-i18n="ESFP">ESFP - The Entertainer</option>
           </select>
         </div>
-        <button type="submit" class="btn btn-primary">Complete Setup</button>
+        <button type="submit" class="btn btn-primary" data-i18n="completeSetup">Complete Setup</button>
       </form>
     </section>
 
@@ -98,7 +105,7 @@
         <!-- Weather Card -->
         <div class="card weather-card glass-panel">
           <div class="weather-header">
-            <h3>Today's Environment</h3>
+            <h3 data-i18n="todaysEnv">Today's Environment</h3>
             <span class="material-symbols-rounded" id="weather-icon">partly_cloudy_day</span>
           </div>
           <div class="weather-body">
@@ -110,7 +117,7 @@
         <!-- Astrology/MBTI Card -->
         <div class="card astro-card glass-panel">
           <div class="astro-header">
-            <h3>Cosmic Synergy</h3>
+            <h3 data-i18n="cosmicSynergy">Cosmic Synergy</h3>
             <div class="badges">
               <span class="badge" id="badge-mbti">MBTI</span>
               <span class="badge" id="badge-zodiac">Zodiac</span>

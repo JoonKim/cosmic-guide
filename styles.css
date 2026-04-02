@@ -281,3 +281,35 @@ input:focus, select:focus {
   font-size: 0.95rem;
   color: var(--text-secondary);
 }
+/* Add to the top of styles.css or near mobile-container */
+.lang-toggle {
+  display: flex;
+  justify-content: flex-end;
+  padding: 16px 24px 0 24px;
+  gap: 8px;
+  align-items: center;
+}
+
+.lang-btn {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.lang-btn:hover {
+  color: var(--text-primary);
+}
+
+.lang-btn.active {
+  color: var(--accent-primary);
+  font-weight: 700;
+}
+
+.lang-sep {
+  color: var(--glass-border);
+  font-size: 0.9rem;
+}
