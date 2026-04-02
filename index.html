@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cosmic Guide | Your Daily Insights</title>
+  <meta name="description" content="Personalized daily guidance based on your MBTI, birthday, and local weather.">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="app" class="mobile-container">
+    
+    <!-- Login View -->
+    <section id="view-login" class="view active">
+      <div class="login-header">
+        <div class="logo-icon">✨</div>
+        <h1 class="gradient-text">Cosmic Guide</h1>
+        <p>Unlock your personalized daily journey.</p>
+      </div>
+      <form id="form-login" class="glass-panel form-layout">
+        <div class="input-group">
+          <label for="login-email">Email</label>
+          <input type="email" id="login-email" placeholder="you@example.com" required>
+        </div>
+        <div class="input-group">
+          <label for="login-password">Password</label>
+          <input type="password" id="login-password" placeholder="••••••••" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Sign In</button>
+        <button type="button" class="btn btn-secondary" id="btn-demo">Try Demo</button>
+      </form>
+    </section>
+
+    <!-- Onboarding View -->
+    <section id="view-onboarding" class="view hidden">
+      <div class="header">
+        <h2>About You</h2>
+        <p>Tell us a bit about yourself so we can tailor your experience.</p>
+      </div>
+      <form id="form-onboarding" class="glass-panel form-layout">
+        <div class="input-group">
+          <label for="onboard-name">First Name</label>
+          <input type="text" id="onboard-name" placeholder="Cosmo" required>
+        </div>
+        <div class="input-group">
+          <label for="onboard-birthday">Birthday</label>
+          <input type="date" id="onboard-birthday" required>
+        </div>
+        <div class="input-group">
+          <label for="onboard-mbti">MBTI Personality Type</label>
+          <select id="onboard-mbti" required>
+            <option value="" disabled selected>Select your type...</option>
+            <option value="INTJ">INTJ - The Architect</option>
+            <option value="INTP">INTP - The Logician</option>
+            <option value="ENTJ">ENTJ - The Commander</option>
+            <option value="ENTP">ENTP - The Debater</option>
+            <option value="INFJ">INFJ - The Advocate</option>
+            <option value="INFP">INFP - The Mediator</option>
+            <option value="ENFJ">ENFJ - The Protagonist</option>
+            <option value="ENFP">ENFP - The Campaigner</option>
+            <option value="ISTJ">ISTJ - The Logistician</option>
+            <option value="ISFJ">ISFJ - The Defender</option>
+            <option value="ESTJ">ESTJ - The Executive</option>
+            <option value="ESFJ">ESFJ - The Consul</option>
+            <option value="ISTP">ISTP - The Virtuoso</option>
+            <option value="ISFP">ISFP - The Adventurer</option>
+            <option value="ESTP">ESTP - The Entrepreneur</option>
+            <option value="ESFP">ESFP - The Entertainer</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Complete Setup</button>
+      </form>
+    </section>
+
+    <!-- Dashboard View -->
+    <section id="view-dashboard" class="view hidden">
+      <header class="dashboard-header">
+        <div>
+          <h2 id="dash-greeting">Good Morning,</h2>
+          <p id="dash-date">Today</p>
+        </div>
+        <button class="icon-btn" id="btn-logout" title="Logout">
+          <span class="material-symbols-rounded">logout</span>
+        </button>
+      </header>
+
+      <div class="dashboard-content">
+        <!-- Weather Card -->
+        <div class="card weather-card glass-panel">
+          <div class="weather-header">
+            <h3>Today's Environment</h3>
+            <span class="material-symbols-rounded" id="weather-icon">partly_cloudy_day</span>
+          </div>
+          <div class="weather-body">
+            <div class="temp-big" id="weather-temp">--°</div>
+            <div class="weather-desc" id="weather-desc">Loading...</div>
+          </div>
+        </div>
+
+        <!-- Astrology/MBTI Card -->
+        <div class="card astro-card glass-panel">
+          <div class="astro-header">
+            <h3>Cosmic Synergy</h3>
+            <div class="badges">
+              <span class="badge" id="badge-mbti">MBTI</span>
+              <span class="badge" id="badge-zodiac">Zodiac</span>
+            </div>
+          </div>
+          <p class="astro-reading" id="astro-reading">
+            Aligning your cosmic energies...
+          </p>
+        </div>
+      </div>
+    </section>
+
+  </div>
+  
+  <script src="app.js"></script>
+</body>
+</html>

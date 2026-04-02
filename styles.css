@@ -1,0 +1,283 @@
+:root {
+  /* Color Palette */
+  --bg-primary: #0f172a;
+  --bg-secondary: #1e293b;
+  --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+  
+  --accent-primary: #8b5cf6;
+  --accent-secondary: #c084fc;
+  --accent-gradient: linear-gradient(135deg, #8b5cf6, #d946ef);
+  
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+  
+  --glass-bg: rgba(30, 41, 59, 0.6);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  
+  --border-radius: 16px;
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+}
+
+body {
+  background: var(--bg-gradient);
+  color: var(--text-primary);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-x: hidden;
+}
+
+/* Typography Specific */
+h1, h2, h3 {
+  font-family: 'Outfit', sans-serif;
+}
+
+.gradient-text {
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Mobile Container Constraint */
+.mobile-container {
+  width: 100%;
+  max-width: 430px; /* iPhone Pro Max width approx */
+  min-height: 100vh;
+  background: transparent;
+  position: relative;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 431px) {
+  .mobile-container {
+    min-height: 850px;
+    height: 90vh;
+    border-radius: 40px;
+    box-shadow: var(--glass-shadow);
+    border: 8px solid #0f172a;
+    background: var(--bg-gradient);
+  }
+}
+
+/* View Management */
+.view {
+  display: none;
+  flex-direction: column;
+  padding: 24px;
+  height: 100%;
+  animation: fadeIn 0.4s ease forwards;
+}
+
+.view.active {
+  display: flex;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Glassmorphism utility */
+.glass-panel {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--border-radius);
+  box-shadow: var(--glass-shadow);
+}
+
+/* Buttons */
+.btn {
+  padding: 14px 24px;
+  border-radius: 12px;
+  border: none;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: var(--transition);
+  text-align: center;
+  width: 100%;
+  font-family: 'Outfit', sans-serif;
+}
+
+.btn-primary {
+  background: var(--accent-gradient);
+  color: white;
+  box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(139, 92, 246, 0.6);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--text-secondary);
+  border: 1px solid var(--glass-border);
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: white;
+}
+
+.icon-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-btn:hover {
+  color: var(--text-primary);
+  transform: scale(1.1);
+}
+
+/* Forms */
+.form-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 24px;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.input-group label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+input, select {
+  background: rgba(15, 23, 42, 0.5);
+  border: 1px solid var(--glass-border);
+  padding: 14px 16px;
+  border-radius: 10px;
+  color: var(--text-primary);
+  font-size: 1rem;
+  transition: var(--transition);
+  outline: none;
+}
+
+input:focus, select:focus {
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.2);
+}
+
+/* Login View Specifics */
+.login-header {
+  margin-top: 60px;
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.logo-icon {
+  font-size: 3rem;
+  margin-bottom: 16px;
+}
+
+#view-login p {
+  color: var(--text-secondary);
+  margin-top: 8px;
+}
+
+/* Dashboard Specifics */
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 30px;
+  margin-top: 20px;
+}
+
+.dashboard-header h2 {
+  font-size: 1.8rem;
+}
+
+#dash-date {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  margin-top: 4px;
+}
+
+.dashboard-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.card {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.weather-header, .astro-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.weather-header h3, .astro-header h3 {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+}
+
+.weather-body .temp-big {
+  font-size: 3rem;
+  font-weight: 700;
+  font-family: 'Outfit', sans-serif;
+  margin-bottom: 4px;
+}
+
+.weather-desc {
+  color: var(--accent-secondary);
+  font-weight: 500;
+}
+
+.badges {
+  display: flex;
+  gap: 8px;
+}
+
+.badge {
+  background: rgba(139, 92, 246, 0.2);
+  color: var(--accent-secondary);
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.astro-reading {
+  line-height: 1.6;
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+}
