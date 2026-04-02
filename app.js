@@ -39,6 +39,10 @@ const i18n = {
     completeSetup: "Complete Setup",
     todaysEnv: "Today's Environment",
     cosmicSynergy: "Cosmic Synergy",
+    sajuTitle: "Eastern Fortune (Saju)",
+    sajuWealth: "Wealth",
+    sajuLove: "Love",
+    sajuCareer: "Career",
     weatherUnavailable: "Weather unavailable",
     weatherClearSky: "Clear Sky",
     weatherPartlyCloudy: "Partly Cloudy",
@@ -93,6 +97,10 @@ const i18n = {
     completeSetup: "설정 완료",
     todaysEnv: "오늘의 환경",
     cosmicSynergy: "우주의 시너지",
+    sajuTitle: "오늘의 사주",
+    sajuWealth: "재물운",
+    sajuLove: "애정운",
+    sajuCareer: "직장운",
     weatherUnavailable: "날씨 정보 없음",
     weatherClearSky: "맑음",
     weatherPartlyCloudy: "약간 흐림",
@@ -144,17 +152,20 @@ const uiElements = {
   astroReading: document.getElementById('astro-reading'),
   btnEn: document.getElementById('btn-lang-en'),
   btnKo: document.getElementById('btn-lang-ko'),
+  sajuAnimal: document.getElementById('saju-animal'),
+  barWealth: document.getElementById('bar-wealth'),
+  barLove: document.getElementById('bar-love'),
+  barCareer: document.getElementById('bar-career'),
+  sajuReading: document.getElementById('saju-reading')
 };
 
 function applyLanguage(lang) {
   state.lang = lang;
   localStorage.setItem('cosmic_lang', lang);
   
-  // Update toggle buttons
   uiElements.btnEn.classList.toggle('active', lang === 'en');
   uiElements.btnKo.classList.toggle('active', lang === 'ko');
 
-  // Update static texts
   const elements = document.querySelectorAll('[data-i18n]');
   elements.forEach(el => {
     const key = el.getAttribute('data-i18n');
@@ -163,13 +174,13 @@ function applyLanguage(lang) {
     }
   });
 
-  // Update dynamic texts if dashboard is active
   if (state.user && state.user.mbti) {
     uiElements.dashGreeting.innerText = `${i18n[lang].greeting}, ${state.user.name || 'Explorer'}`;
     const dateOptions = { weekday: 'long', month: 'short', day: 'numeric' };
     uiElements.dashDate.innerText = new Date().toLocaleDateString(lang === 'ko' ? 'ko-KR' : 'en-US', dateOptions);
-    if (state.weather) updateWeatherDesc(state.weather);
+    if (state.weather !== null) updateWeatherDesc(state.weather);
     generateReading();
+    generateSaju();
   }
 }
 
@@ -180,7 +191,7 @@ uiElements.btnKo.addEventListener('click', () => applyLanguage('ko'));
 function showView(viewName) {
   Object.values(views).forEach(v => {
     v.classList.remove('active');
-    setTimeout(() => v.classList.add('hidden'), 300); // Wait for fade out
+    setTimeout(() => v.classList.add('hidden'), 300);
   });
   
   const targetView = views[viewName];
@@ -190,7 +201,7 @@ function showView(viewName) {
 
 function getZodiacCodename(dateString) {
   const date = new Date(dateString);
-  const month = date.getUTCMonth() + 1; // 1-12
+  const month = date.getUTCMonth() + 1;
   const day = date.getUTCDate();
 
   if ((month === 3 && day >= 21) || (month === 4 && day <= 19)) return "Aries";
@@ -208,11 +219,21 @@ function getZodiacCodename(dateString) {
   return "Unknown";
 }
 
+function getChineseZodiac(dateString) {
+  const year = new Date(dateString).getUTCFullYear();
+  const animals = ["Monkey", "Rooster", "Dog", "Pig", "Rat", "Ox", "Tiger", "Rabbit", "Dragon", "Snake", "Horse", "Sheep"];
+  const animalsKo = ["원숭이띠", "닭띠", "개띠", "돼지띠", "쥐띠", "소띠", "호랑이띠", "토끼띠", "용띠", "뱀띠", "말띠", "양띠"];
+  return state.lang === 'ko' ? animalsKo[year % 12] : "Year of the " + animals[year % 12];
+}
+
 function loadSession() {
-  applyLanguage(state.lang);
   const saved = localStorage.getItem('cosmic_user');
   if (saved) {
     state.user = JSON.parse(saved);
+  }
+  applyLanguage(state.lang); // Sets i18n texts
+  
+  if (state.user) {
     if (state.user.mbti && state.user.birthday) {
       initDashboard();
     } else {
@@ -258,7 +279,6 @@ async function fetchWeatherByCoords(lat, lon) {
   
   state.weather = current.weather_code;
   if(state.lang === 'ko') {
-    // Fahrenheit to Celsius for KR
     const c = (current.temperature_2m - 32) * 5/9;
     uiElements.weatherTemp.innerText = `${Math.round(c)}°`;
   } else {
@@ -268,6 +288,7 @@ async function fetchWeatherByCoords(lat, lon) {
 }
 
 function updateWeatherDesc(code) {
+  if (code === null || code === undefined) return;
   let descKey = "weatherClearSky";
   let icon = "clear_day";
   
@@ -292,8 +313,9 @@ function updateWeatherDesc(code) {
   uiElements.weatherIcon.innerText = icon;
 }
 
-// Logic Engine
+// Logic Engines
 function generateReading() {
+  if(!state.user.birthday) return;
   const mbti = state.user.mbti;
   const rawZodiac = getZodiacCodename(state.user.birthday);
   const zodiacName = i18n[state.lang]["zodiac" + rawZodiac] || i18n[state.lang].unknown;
@@ -316,6 +338,34 @@ function generateReading() {
   }
 
   uiElements.astroReading.innerText = intro + t1 + t2 + t3;
+}
+
+function generateSaju() {
+  if(!state.user.birthday) return;
+  uiElements.sajuAnimal.innerText = getChineseZodiac(state.user.birthday);
+
+  const today = new Date().toDateString();
+  const seedStr = state.user.birthday + state.user.mbti + today;
+  let hash = 0;
+  for (let i = 0; i < seedStr.length; i++) {
+    hash = seedStr.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  const randomizer = Math.abs(hash);
+  
+  const wealth = (randomizer % 60) + 40;  
+  const love = ((randomizer >> 2) % 65) + 35; 
+  const career = ((randomizer >> 4) % 50) + 50; 
+
+  uiElements.barWealth.style.width = wealth + '%';
+  uiElements.barLove.style.width = love + '%';
+  uiElements.barCareer.style.width = career + '%';
+
+  const isGood = (wealth + love + career) > 220;
+  if (state.lang === 'en') {
+    uiElements.sajuReading.innerText = isGood ? "A highly auspicious day! Your pillars align for great success." : "Patience is key today. Maintain your balance and flow with the energies.";
+  } else {
+    uiElements.sajuReading.innerText = isGood ? "기운이 맑고 막힘이 없는 대길의 하루입니다! 뜻하는 바를 과감히 추진해보세요." : "오늘은 무리한 진행보다는 내실을 다지는 것이 좋은 하루입니다. 여유를 가지세요.";
+  }
 }
 
 // Initializers

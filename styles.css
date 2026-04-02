@@ -313,3 +313,48 @@ input:focus, select:focus {
   color: var(--glass-border);
   font-size: 0.9rem;
 }
+/* Saju Specifics */
+.saju-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.saju-header h3 {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+}
+.saju-badge {
+  background: rgba(217, 70, 239, 0.2);
+  color: #d946ef;
+}
+.saju-scores {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.saju-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.saju-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  width: 50px;
+}
+.saju-bar {
+  flex: 1;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.saju-fill {
+  height: 100%;
+  background: var(--accent-gradient);
+  border-radius: 4px;
+  transition: width 1s ease-out;
+}
